@@ -1,0 +1,105 @@
+PROJECT 2: EXPENSE TRACKER (CLI)
+==================================
+
+OVERVIEW
+--------
+A command-line app that lets a user log expenses, view them, see totals,
+and remove entries — all while the program runs in a single session
+(no file saving needed).
+
+CONCEPTS
+--------
+Known:  variables, loops, functions, lists, user input handling,
+        while True / break
+New:    dictionaries — each expense is stored as a dict with keys like
+        "category" and "amount", held inside a list
+
+REQUIREMENTS
+------------
+
+Data structure:
+- Maintain one list, e.g. expenses = []
+- Each entry is a dict: {"category": str, "amount": float}
+
+Menu loop:
+- Use while True with break as the exit mechanism
+  (single controlling loop, no extra flags)
+- Menu options:
+    1. Add expense
+    2. View all expenses
+    3. View total spent
+    4. Remove an expense
+    5. Exit
+
+Functions required (no unnecessary imports):
+
+1. add_expense(expenses)
+   - Prompts for category and amount, appends dict to list.
+   - Amount must be validated as a positive number
+     (loop until valid input, don't just crash on bad input).
+
+2. view_expenses(expenses)
+   - Prints each expense with its index number, category, and amount.
+   - Handle the empty-list case with a clear message.
+
+3. total_spent(expenses)
+   - Computes and prints the sum of all amounts.
+
+4. remove_expense(expenses)
+   - Shows the list with indices, asks which index to remove.
+   - Safely handles an out-of-range or invalid index
+     (this is the ValueError/crash pattern from last time —
+     guard it explicitly, don't let it kill the program).
+
+CONSTRAINTS
+-----------
+- No imports.
+- Invalid menu choices, invalid amounts, and invalid remove-indices
+  should all be caught and re-prompted, not crash the program.
+- Decide your loop's exit condition BEFORE writing the loop body
+  (this is the habit we're building).
+
+SAMPLE INTERACTION
+-------------------
+==== Expense Tracker ====
+1. Add expense
+2. View expenses
+3. View total
+4. Remove expense
+5. Exit
+Choose an option: 1
+Enter category: Food
+Enter amount: 12.50
+Expense added.
+
+Choose an option: 1
+Enter category: Transport
+Enter amount: -5
+Amount must be positive. Try again: 4.25
+Expense added.
+
+Choose an option: 2
+0: Food - $12.50
+1: Transport - $4.25
+
+Choose an option: 3
+Total spent: $16.75
+
+Choose an option: 4
+0: Food - $12.50
+1: Transport - $4.25
+Enter index to remove: 5
+Invalid index. Try again: 0
+Removed: Food - $12.50
+
+Choose an option: 5
+Goodbye!
+
+WHAT TO WATCH FOR (based on last project)
+------------------------------------------
+- Don't nest a validation loop inside the menu loop unless genuinely
+  needed — a single while True/break per input request is usually enough.
+- Validate the amount/index AFTER collecting input, not with a stale
+  check beforehand.
+- Use try/except around the index conversion in remove_expense instead
+  of assuming the input is always a valid integer.

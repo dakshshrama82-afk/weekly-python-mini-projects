@@ -31,3 +31,4 @@ while True:
             totalexpens.remove(remove)
     if task == "exit":
         break
+print("thanks for using")
